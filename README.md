@@ -22,7 +22,7 @@ Install
 --------------------------------------------------
 
     sudo wget -qO /usr/local/bin/rush \
-    https://git.io/rush && \
+    https://raw.githubusercontent.com/DannyBen/rush-command/master/rush && \
     sudo chmod +x /usr/local/bin/rush
 
 Or, manually place the [rush](rush) script anywhere in your `PATH`.
