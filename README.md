@@ -70,7 +70,7 @@ Development
 --------------------------------------------------
 
 For local development of your own rush repo, you can use the provided
-sample docker-compose file.
+sample [docker-compose](docker-compose.yml) file.
 
 Place it in your rush repo, and run:
 
