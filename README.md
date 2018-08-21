@@ -65,8 +65,6 @@ these instructions to create one from scratch.
    contain the GitHub URL for the package, so the script can easily
    download files from its own folder ([example](/gitconfig/main)).
 
-See any of the folders in this repository for additional examples.
-
 
 Development
 --------------------------------------------------
