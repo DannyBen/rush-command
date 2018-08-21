@@ -17,6 +17,6 @@ services:
   web:
     image: dannyben/alpine-adsf
     volumes: 
-    - $PWD:/app
+    - .:/app
     ports:
     - 3000:3000
