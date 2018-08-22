@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+wget -qO ./downloaded $SELF/somefile
+echo "Saved 'downloaded' in the current directory"

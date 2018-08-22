@@ -39,17 +39,25 @@ For example:
     
     $ rush dannyben hello
 
-You may omit the GitHub username, if it is set in the `RUSH_REPO` environment
+In case the repository's name is different than `rush`, simply provide the 
+full user/repo name:
+
+    $ rush dannyben/rushrepo hello
+
+You can set a default repository to use in the `RUSH_REPO`environment
 variable:
 
     $ export RUSH_REPO=dannyben
     $ rush hello
 
-Getting packages from non GitHub repositories is also easy. Just set 
-`RUSH_REPO` to a full URL:
+Getting packages from non GitHub repositories is also easy. Just use a 
+full URL in the command line, or in `RUSH_REPO`:
 
+    $ rush http://localhost:3000 hello
+    # or
     $ export RUSH_REPO=http://localhost:3000
     $ rush hello
+
 
 
 Building your own Rush repository
@@ -60,17 +68,46 @@ these instructions to create one from scratch.
 
 1. Create a new repository on GitHub, named `rush`.
 2. Each folder you create in this repository is considered a package.
-3. Each package needs to have an executable `main` script.
-4. In the script, you have the `$SELF` environment variable, which will 
-   contain the GitHub URL for the package, so the script can easily
-   download files from its own folder ([example](/gitconfig/main)).
+3. Each package needs to have bash script named `main`.
+4. In the script, you have several environment variables available:
+    - `$REPO`: contains the full URL of the repository
+    - `$PACK`: contains the package name only
+    - `$SELF`: contains the full URL of the package (== `$REPO/$PACK`)
+
+Another functionality in Rush, allows users to download and display a remote
+file by preceding the package name with a forward slash:
+
+    $ rush /<path>
+
+For example:
+
+    $ rush /index
+
+In this case, the file will be downloaded and displayed on the screen.
+This is suitable to cases where you want to provide information about the 
+repository, or an index of available packages.
+
 
 
 Development
 --------------------------------------------------
 
+### For Rush Command Developers
+
+Use the provided [docker-compose](docker-compose.yml) and use the `repo` 
+folder to place your mock scripts. Remember to remove any additional scripts
+from this folder before committing.
+
+Then, you will be ready to run:
+
+    $ docker compose run bash
+    $ rush hello   # or whatever command you wish to test
+
+
+### For Rush Repository Developers
+
 For local development of your own rush repo, you can use the provided
-sample [docker-compose](docker-compose.yml) file.
+[docker-compose-example](docker-compose-example.yml) file.
 
 Place it in your rush repo, and run:
 

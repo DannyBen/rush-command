@@ -16,37 +16,87 @@ usage() {
 
   if $LONG_USAGE; then
     printf "\nParameters:\n"
-    printf "  REPO     either a GitHub user or a full URL to any site\n"
-    printf "           can be omitted if set in the RUSH_REPO environment variable\n"
-    printf "  PACKAGE  a name of a package from the rush repository\n\n"
+    printf "  REPO\n"
+    printf "    Source repository to download from. Supported formats:\n\n"
+    printf "    user\n"
+    printf "      Use the user's GitHub repository named 'rush'\n\n"
+    printf "    user/repo\n"
+    printf "      Use a custom GitHub rush repository\n\n"
+    printf "    http://any.site.com\n"
+    printf "      Use any rush compatible site\n\n"
+    printf "  PACKAGE\n"
+    printf "    The name of a package from the rush repository. supported formats:\n\n"
+    printf "    package\n"
+    printf "      Execute the main package script\n\n"
+    printf "    /package/file\n"
+    printf "      Display the contents of a package file\n"
+    printf "      Use '/package/main' to see the source of the main script\n\n"
+    printf "    .package\n"
+    printf "      Show package info\n"
+    printf "\nEnvironmant Vairbales:\n"
+    printf "  RUSH_REPO\n"
+    printf "    Set the default repo to download from. When this is set, you can omit\n"
+    printf "    the REPO parameter from the command line\n"
+    printf "\nExamples:\n"
+    printf "  rush dannyben hello            # execute\n"
+    printf "  rush dannyben /hello/main      # show contents of 'main'\n"
+    printf "  rush dannyben .hello           # show info\n"
+    printf "  rush dannyben/rush hello       # execute\n"
+    printf "\n"
   fi
 }
 
 find_source() {
   if [[ $# == 2 ]]; then
-    repo=$1
-    pack=$2
+    REPO=$1
+    PACK=$2
   else
-    repo=$RUSH_REPO
-    pack=$1
+    REPO=$RUSH_REPO
+    PACK=$1
   fi
 
-  if [[ $repo =~ ':' ]]; then
-    base="$repo"
+  if [[ $REPO =~ ':' ]]; then
+    REPO_URL="$REPO"
+  elif [[ $REPO =~ '/' ]]; then
+    REPO_URL="https://raw.githubusercontent.com/$REPO/master"
   else
-    base="https://raw.githubusercontent.com/$repo/rush/master"
+    REPO_URL="https://raw.githubusercontent.com/$REPO/rush/master"
   fi
 }
 
 execute() {
-  printf "\nRushing $repo/$pack\n"
-  export SELF="$base/$pack"
+  if [[ $PACK == /* ]]; then
+    download_and_print
+  elif [[ $PACK == .* ]]; then
+    PACK="/${PACK:1}/info"
+    download_and_print
+  else
+    download_and_execute
+  fi
+}
+
+download_and_print() {
+  src="$REPO_URL$PACK"
+  wget -qO- "$src"
+  exitcode=$?
+
+  if [[ "$exitcode" != "0" ]]; then
+    echo "/ rush: Error $exitcode @ $src"
+  fi
+}
+
+download_and_execute() {
+  printf "\n/ rush: Rushing $REPO/$PACK\n"
+  
+  export SELF="$REPO_URL/$PACK"
+  export REPO="$REPO_URL"
+  export PACK="$PACK"
 
   wget -qO- $SELF/main | bash
   exitcode=$?
 
   if [[ "$exitcode" != "0" ]]; then
-    echo "Error $exitcode @ $SELF"
+    echo "/ rush: Error $exitcode @ $SELF"
   fi
 }
 
@@ -69,7 +119,7 @@ run() {
 }
 
 initialize() {
-  VERSION="0.1.1"
+  VERSION="0.1.2"
   LONG_USAGE=false
   set -o pipefail
 }
