@@ -12,10 +12,13 @@ _  /     /_/    \__,_/ /____/ /_/ /_/
 
 
 Rush is a simple bash script that executes other bash scripts from compatible 
-GitHub repositories ([example rush repository][1]).
+GitHub repositories. 
 
-It was designed to easily allow bootstrapping of new linux machines with your
-desired configuration and installed packages.
+See [this minimal rush repo](repo), or a real life example
+repo at [DannyBen/rush][1].
+
+Rush was designed to easily allow bootstrapping of new linux machines with 
+your desired configuration and installed packages.
 
 
 Install
@@ -59,6 +62,11 @@ full URL in the command line, or in `RUSH_REPO`:
     $ rush hello
 
 
+For additional usage options, run:
+
+    $ rush --help
+
+
 
 Building your own Rush repository
 --------------------------------------------------
@@ -68,24 +76,12 @@ these instructions to create one from scratch.
 
 1. Create a new repository on GitHub, named `rush`.
 2. Each folder you create in this repository is considered a package.
-3. Each package needs to have bash script named `main`.
-4. In the script, you have several environment variables available:
+3. Each package needs to have bash script named `main`, and optionally
+   a plain text file called `info`.
+4. In the `main` script, you have several environment variables available:
     - `$REPO`: contains the full URL of the repository
     - `$PACK`: contains the package name only
     - `$SELF`: contains the full URL of the package (== `$REPO/$PACK`)
-
-Another functionality in Rush, allows users to download and display a remote
-file by preceding the package name with a forward slash:
-
-    $ rush /<path>
-
-For example:
-
-    $ rush /index
-
-In this case, the file will be downloaded and displayed on the screen.
-This is suitable to cases where you want to provide information about the 
-repository, or an index of available packages.
 
 
 
