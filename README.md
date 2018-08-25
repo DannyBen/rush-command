@@ -24,9 +24,7 @@ your desired configuration and installed packages.
 Install
 --------------------------------------------------
 
-    sudo wget -qO /usr/local/bin/rush \
-    https://raw.githubusercontent.com/DannyBen/rush-command/master/rush && \
-    sudo chmod +x /usr/local/bin/rush
+    $ bash <(curl -s https://raw.githubusercontent.com/DannyBen/rush-command/master/setup)
 
 Or, manually place the [rush](rush) script anywhere in your `PATH`.
 
