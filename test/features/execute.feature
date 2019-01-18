@@ -23,6 +23,12 @@ Scenario: rush USER/REPO PACKAGE
    Then the output should say "What's the rush?"
     And the output should say "dannyben/rush/master/hello"
 
+Scenario: rush USER/REPO NESTED/PACKAGE
+  Given the variable "RUSH_REPO" is empty
+   When I run "rush dannyben/rush my/hello"
+   Then the output should say "What's the nested rush?"
+    And the output should say "dannyben/rush/master/my/hello"
+
 Scenario: rush REPO PACKAGE when RUSH_REPO is also set
   Given the variable "RUSH_REPO" is "something-unfoundable"
    When I run "rush dannyben hello"
