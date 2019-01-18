@@ -1,4 +1,4 @@
-Feature: Version
+Feature: Execute
 
 Scenario: rush PACKAGE with RUSH_REPO environment
   Given the variable "RUSH_REPO" is "dannyben"
@@ -43,6 +43,7 @@ Scenario: rush .PACKAGE
 Scenario: rush /PACKAGE/FILE
   Given the variable "RUSH_REPO" is "dannyben"
    When I run "rush /hello/main"
-   Then the output should say "echo \"What's the rush?\""
+   Then the output should say "echo"
+    And the output should say "What's the rush?"
 
 
