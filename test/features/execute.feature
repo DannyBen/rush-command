@@ -1,4 +1,4 @@
-Feature: Version
+Feature: Execute
 
 Scenario: rush PACKAGE with RUSH_REPO environment
   Given the variable "RUSH_REPO" is "dannyben"
@@ -23,6 +23,12 @@ Scenario: rush USER/REPO PACKAGE
    Then the output should say "What's the rush?"
     And the output should say "dannyben/rush/master/hello"
 
+Scenario: rush USER/REPO NESTED/PACKAGE
+  Given the variable "RUSH_REPO" is empty
+   When I run "rush dannyben/rush my/hello"
+   Then the output should say "What's the nested rush?"
+    And the output should say "dannyben/rush/master/my/hello"
+
 Scenario: rush REPO PACKAGE when RUSH_REPO is also set
   Given the variable "RUSH_REPO" is "something-unfoundable"
    When I run "rush dannyben hello"
@@ -37,6 +43,7 @@ Scenario: rush .PACKAGE
 Scenario: rush /PACKAGE/FILE
   Given the variable "RUSH_REPO" is "dannyben"
    When I run "rush /hello/main"
-   Then the output should say "echo \"What's the rush?\""
+   Then the output should say "echo"
+    And the output should say "What's the rush?"
 
 

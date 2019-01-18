@@ -1,9 +1,10 @@
 language: ruby
 
 rvm:
-  - 2.4.1
+  - 2.5.3
 
 before_script: 
+  - gem install bundler
   - export PATH=$PATH:$PWD
   - cd test 
   - bundle
