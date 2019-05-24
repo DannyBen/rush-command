@@ -4,12 +4,11 @@ rvm:
   - 2.5.3
 
 before_script: 
-  - gem install bundler
-  - export PATH=$PATH:$PWD
-  - cd test 
-  - bundle
+- gem install bundler
+- export PATH=$PATH:$PWD
 
-script: bundle exec cucumber
-
-notifications:
-  email: false
+script:
+- shellcheck op
+- cd test 
+- bundle
+- bundle exec cucumber
