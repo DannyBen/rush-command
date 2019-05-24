@@ -11,7 +11,7 @@ usage() {
   printf "  rush -v | --version\n"
 
   if [[ -n "$RUSH_REPO" ]]; then
-    printf "\nRUSH_REPO=$RUSH_REPO\n"
+    printf "\nRUSH_REPO=%s\n" "$RUSH_REPO"
   fi
 
   if $LONG_USAGE; then
@@ -86,13 +86,13 @@ download_and_print() {
 }
 
 download_and_execute() {
-  printf "\n/ rush: Rushing $REPO/$PACK\n"
+  printf "\n/ rush: Rushing %s/%s\n" "$REPO" "$PACK"
   
   export SELF="$REPO_URL/$PACK"
   export REPO="$REPO_URL"
   export PACK="$PACK"
 
-  wget -qO- $SELF/main | bash
+  wget -qO- "$SELF/main" | bash
   exitcode=$?
 
   if [[ "$exitcode" != "0" ]]; then
@@ -104,8 +104,8 @@ attempt_execute() {
   if [[ $# == 0 ]] || ([[ $# == 1 ]] && [[ -z "$RUSH_REPO" ]]); then
     usage
   else
-    find_source $@
-    execute $@
+    find_source "$@"
+    execute "$@"
   fi
 }
 
@@ -113,8 +113,8 @@ run() {
   initialize
   case "$1" in
     -h | --help    ) LONG_USAGE=true; usage ;;
-    -v | --version ) echo $VERSION ;;
-    * ) attempt_execute $@ ;;
+    -v | --version ) echo "$VERSION" ;;
+    * ) attempt_execute "$@" ;;
   esac
 }
 
@@ -124,4 +124,4 @@ initialize() {
   set -o pipefail
 }
 
-run $@
+run "$@"
