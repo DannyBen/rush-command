@@ -8,7 +8,7 @@ before_script:
 - export PATH=$PATH:$PWD
 
 script:
-- shellcheck op
+- shellcheck rush
 - cd test 
 - bundle
 - bundle exec cucumber
