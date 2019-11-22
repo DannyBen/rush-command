@@ -1,6 +1,12 @@
 Rush - Linux Workstation Bootstrapper
 ==================================================
 
+### DEPRECATION NOTICE
+
+This repository was merged into the new [Rush CLI][2] and is no longer maintained.
+
+---
+
 ```
 _______                       ______  
 ____  /  ___________  ___________  /_ 
@@ -115,4 +121,5 @@ The docker compose stack is set up to:
 - Have `RUSH_REPO` point to http://web:3000
 
 
-[1]: https://github.com/dannyben/rush
+[1]: https://github.com/dannyben/rush-repo
+[2]: https://github.com/dannyben/rush-cli
