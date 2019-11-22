@@ -1,4 +1,4 @@
-Rush - Linux Workstation Bootstrapper
+Rush - Personal Package Manager
 ==================================================
 
 ### DEPRECATION NOTICE
@@ -13,7 +13,7 @@ ____  /  ___________  ___________  /_
 ___  /   __  ___/  / / /_  ___/_  __ \
 __  /    _  /   / /_/ /_(__  )_  / / /
 _  /     /_/    \__,_/ /____/ /_/ /_/ 
-/_/      Linux Workstation Bootstrapper
+/_/      Personal Package Manager
 ```
 
 
@@ -21,7 +21,7 @@ Rush is a simple bash script that executes other bash scripts from compatible
 GitHub repositories. 
 
 See [this minimal rush repo](repo), or a real life example
-repo at [DannyBen/rush][1].
+repo at [DannyBen/rush-repo][1].
 
 Rush was designed to easily allow bootstrapping of new linux machines with 
 your desired configuration and installed packages.
